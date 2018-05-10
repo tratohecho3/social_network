@@ -1,0 +1,11 @@
+{
+  "name": "social_network",
+  "version": "1.0.0",
+  "description": "Backend social network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cesar Colina <tratohecho3@gmail.com> (https://www.linkedin.com/in/cesar-colina/)",
+  "license": "MIT"
+}
