@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 //Loading routes
-
+let user_routes = require('./routes/user');
 
 //middlewares
 app.use(bodyParser.urlencoded({extended:false}));
@@ -16,6 +16,5 @@ app.use(bodyParser.json());
 
 
 //routes
-app.get('/', (req,res) => res.send({message: 'hello'}));
-
+app.use('/api',user_routes);
 module.exports = app;
