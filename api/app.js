@@ -16,6 +16,6 @@ app.use(bodyParser.json());
 
 
 //routes
-app.get('/', (req,res) => res.send('Hello'));
+app.get('/', (req,res) => res.send({message: 'hello'}));
 
 module.exports = app;
