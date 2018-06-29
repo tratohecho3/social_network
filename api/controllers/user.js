@@ -1,7 +1,8 @@
 'use strict'
 
 let User = require('../models/user');
-const bcrypt = require('bcrypt-nodejs');
+let bcrypt = require('bcrypt-nodejs');
+let mongoosePaginate = require('mongoose-pagination')
 let jwt = require('../services/jwt');
 
 function home(req,res){
@@ -109,10 +110,28 @@ function getUser(req, res) {
     })
 } 
 
+function getUsers(req, res) {
+    let identity_user_id = req.user.sub;
+    let page = 1;
+    if (req.params.page) {
+        page = req.params.page;
+    }
+    let itemsPerPage = 5;
+
+    User.find().sort('_id').paginate(page,itemsPerPage, (err, users, total) => {
+        if (err) return res.status(500).send({message: 'Error en la peticion'});
+
+        if (!users) return res.status(404).send({message: 'No hay usuarios disponibles'});
+
+        return res.status(200).send({users,total,pages: Math.ceil(total/itemsPerPage)})
+    })
+}
+
 module.exports = {
     home,
     pruebas,
     saveUser,
     loginUser,
-    getUser
+    getUser,
+    getUsers
 }
