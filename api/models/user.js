@@ -1,7 +1,7 @@
 'use strict'
 const mongoose = require('mongoose');
-let schema = mongoose.Schema;
-let userSchema = schema({
+let Schema = mongoose.Schema;
+let userSchema = Schema({
     name: String,
     surname: String,
     nick: String,

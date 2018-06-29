@@ -1,8 +1,8 @@
 'use strict'
 const mongoose = require('mongoose');
-let schema = mongoose.Schema;
-let publicationSchema = schema({
-    user: {type: schema.ObjectId, ref: 'User'},
+let Schema = mongoose.Schema;
+let publicationSchema = Schema({
+    user: {type: Schema.ObjectId, ref: 'User'},
     text: String,
     file: String,
     created_at: String,

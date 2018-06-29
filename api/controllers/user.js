@@ -6,7 +6,7 @@ let jwt = require('../services/jwt');
 
 function home(req,res){
     res.status(200).send({
-        message: ' Hola mundo desdeel servidor '
+        message: ' Hola mundo desde el servidor '
     })
 }
 
@@ -31,8 +31,8 @@ function saveUser(req,res){
         
         //Controlar usuarios duplicados
         User.find({$or:[
-            {email:user.email},
-            {nick:user.nick}
+            {email:user.email.toLowerCase()},
+            {nick:user.nick.toLowerCase()}
         ]}).exec((err,users) => {
             if(err) return res.status(500).send({message:'Error en la peticion de usuarios'});
             if (users && users.length > 0){
@@ -99,10 +99,20 @@ function loginUser(req,res){
     })
 }
 
+function getUser(req, res) {
+    var userId = req.params.id;
+
+    User.findById(userId, (err, user) => {
+        if(err) return res.status(500).send({message: 'Error en la peticion'});
+        if(!user) return res.status(404).send({message: 'El usuario no existe'})
+        return res.status(200).send({user})
+    })
+} 
 
 module.exports = {
     home,
     pruebas,
     saveUser,
-    loginUser
+    loginUser,
+    getUser
 }

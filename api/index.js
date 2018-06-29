@@ -4,9 +4,9 @@ const app = require('./app');
 const port = 3800;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/localhost')
+mongoose.connect('mongodb://localhost/curso_mean_social')
     .then(() => {
-        console.log('connected');
+        console.log('connected to DB');
         app.listen(port,() => console.log('Server running at' + port));
     })
-    .catch((err) => console.log(err))
+    .catch(err => console.log(err))

@@ -17,4 +17,6 @@ app.use(bodyParser.json());
 
 //routes
 app.use('/api',user_routes);
+
+
 module.exports = app;
