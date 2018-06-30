@@ -4,6 +4,8 @@ let User = require('../models/user');
 let bcrypt = require('bcrypt-nodejs');
 let mongoosePaginate = require('mongoose-pagination')
 let jwt = require('../services/jwt');
+let fs = require('fs');
+let path = require('path');
 
 function home(req,res){
     res.status(200).send({
@@ -147,6 +149,62 @@ function updateUser(req, res) {
 
 }
 
+function uploadImage(req, res) {
+
+    let userId = req.params.id;
+
+    if (req.files) {
+        let file_path = req.files.image.path;
+        let file_split = file_path.split('\\');
+        let file_name = file_split[2];
+        let ext_split = file_name.split('\.');
+        let file_ext = ext_split[1]
+
+        if (userId != req.user.sub) { 
+            return removeFilesOfUploads(res,file_path, 'No tienes permiso para actualizar los datos del usuario');
+            
+        }
+    
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
+            User.findByIdAndUpdate(userId, {image: file_name}, {new:true}, (err, userUpdated) => {
+                if (err) return res.status(500).send({message: 'Error en la peticion'});
+
+                if (!userUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'})
+
+                return res.status(200).send({user: userUpdated});
+            })
+        }
+
+        else{
+            return removeFilesOfUploads(res,file_path, 'Extension no valida');
+        }
+    }
+
+    else{
+        return res.status(200).send({message: 'No se han subido imagenes'})
+    }
+
+}
+
+function removeFilesOfUploads(res,file_path, message) {
+    fs.unlink(file_path, (err) => {
+        if(err) return res.status(200).send({message})
+    });
+}
+
+function getImageFile(req, res) {
+    let image_file = req.params.imageFile;
+    let path_file = './uploads/users/' + image_file;
+    fs.exists(path_file, (exists) => {
+        if(exists) {
+            res.sendFile(path.resolve(path_file));
+        }
+        else {
+            res.status(200).send({message: 'No existe la imagen...'})
+        }
+    });
+
+}
 module.exports = {
     home,
     pruebas,
@@ -154,5 +212,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsers,
-    updateUser
+    updateUser,
+    uploadImage,
+    getImageFile
 }
