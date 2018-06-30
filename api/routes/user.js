@@ -11,6 +11,7 @@ router.post('/register',userController.saveUser);
 router.post('/login',userController.loginUser);
 router.get('/user/:id',mdAuth.ensureAuth,userController.getUser);
 router.get('/users/:page?',mdAuth.ensureAuth,userController.getUsers);
+router.put('/update-user/:id', mdAuth.ensureAuth,userController.updateUser);
 
 
 
