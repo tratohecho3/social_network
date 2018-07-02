@@ -13,6 +13,7 @@ router.post('/register',userController.saveUser);
 router.post('/login',userController.loginUser);
 router.get('/user/:id',mdAuth.ensureAuth,userController.getUser);
 router.get('/users/:page?',mdAuth.ensureAuth,userController.getUsers);
+router.get('/counters/:id?', mdAuth.ensureAuth, userController.getCounters);
 router.put('/update-user/:id', mdAuth.ensureAuth,userController.updateUser);
 router.post('/upload-image-user/:id', [mdAuth.ensureAuth, md_upload],userController.uploadImage);
 router.get('/get-image-user/:imageFile',userController.getImageFile);
