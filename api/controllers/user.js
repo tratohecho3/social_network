@@ -1,7 +1,8 @@
 'use strict'
 
 let User = require('../models/user');
-let Follow = require('../models/follow')
+let Follow = require('../models/follow');
+let Publication = require('../models/publication');
 let bcrypt = require('bcrypt-nodejs');
 let mongoosePaginate = require('mongoose-pagination')
 let jwt = require('../services/jwt');
@@ -227,8 +228,13 @@ async function getCountFollow(user_id) {
             if(err) return console.log(err);
             return count; 
         })
+
+        let publications = await Publication.count({"user":user_id}).exec().then((count, err) => {
+            if (err) return console.log(err);
+            return count;
+        })
     
-        return { following, followed};
+        return { following, followed, publications};
         
     } catch (error) {
         return console.log(error);
@@ -296,7 +302,7 @@ function uploadImage(req, res) {
 
 function removeFilesOfUploads(res,file_path, message) {
     fs.unlink(file_path, (err) => {
-        if(err) return res.status(200).send({message})
+        return res.status(200).send({message})
     });
 }
 
