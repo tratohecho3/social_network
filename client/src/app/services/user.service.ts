@@ -8,12 +8,53 @@ import { GLOBAL } from './global'
 })
 export class UserService {
   public url:string;
+  public identity;
+  public token;
 
   constructor(public httpClient: HttpClient) {
     this.url = GLOBAL.url;
   }
 
-  register(user_to_register) {
-    console.log(user_to_register);
+  register(user:User): Observable<any> {
+    let params = JSON.stringify(user);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.httpClient.post(this.url+'register', params, {headers});
+  }
+
+  signUp(user: any, getToken=null): Observable<any> {
+    if(getToken != null) {
+      user.getToken = getToken;
+    }
+    let params = JSON.stringify(user);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json')
+    
+    return this.httpClient.post(this.url+ 'login', params, {headers})
+  }
+
+  getIdentity() {
+    let identity = JSON.parse(localStorage.getItem('identity'));
+
+    if(identity != undefined) {
+      this.identity = identity
+    }
+    else {
+      this.identity = null;
+    }
+
+    return this.identity;
+  }
+
+  getToken() {
+    let token = JSON.parse(localStorage.getItem('token'));
+
+    if(token != undefined) {
+      this.token = token
+    }
+    else {
+      this.token = null;
+    }
+
+    return this.token;
   }
 }

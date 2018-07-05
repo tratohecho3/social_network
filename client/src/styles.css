@@ -7,6 +7,10 @@
     border-bottom: 1px solid #eee;
 }
 
+.active {
+    background-color: #cc1717;
+}
+
 
 .navigation {
     padding: 0px !important;
@@ -25,3 +29,12 @@
 }
 
 
+.navigation .navbar a:hover {
+    background-color: #cc1717 !important;
+}
+
+.jumbotron {
+    padding: 25px;
+    border-radius: 5px;
+    text-align: center;
+}

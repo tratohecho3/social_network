@@ -10,6 +10,9 @@ import { UserService } from '../services/user.service';
 export class RegisterComponent implements OnInit {
   public title:string;
   public user: User;
+  public status: string;
+
+
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private userService: UserService) { 
     this.title = 'Registrate';
     this.user = new User("","","","","","","ROLE_USER","")
@@ -19,7 +22,22 @@ export class RegisterComponent implements OnInit {
     console.log('Componente de register cargado')
   }
 
-  onSubmit() {
-    this.userService.register(this.user);
+  onSubmit(form) {
+    this.userService.register(this.user).subscribe(
+      response => {
+        console.log(response)
+        if(response.user && response.user._id){
+          console.log(response.user)
+          this.status = 'success'
+          form.reset()
+        }
+        else {
+          this.status = 'error'
+        }
+      },
+      error => {
+        console.log(error)
+      }
+    );
   }
 }
