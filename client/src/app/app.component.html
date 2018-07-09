@@ -45,7 +45,7 @@
 
       <ul class="nav navbar-nav navbar-right" *ngIf="identity">
         <li class="avatar">
-
+          <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity && identity.image">
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">{{identity.name}} <span class="caret"></span></a>
@@ -57,7 +57,8 @@
                 </a>
             </li>
             <li>
-                <a>
+                <a [routerLink]="['/mis-datos']">
+                  
                   <span class="glyphicon glyphicon-cog"></span>
                   Mis datos
                 </a>

@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
           this.status = 'error';
         }
         else {
+          this.status = 'success'
           localStorage.setItem('identity', JSON.stringify(this.identity));
           this.getToken();
 
@@ -78,7 +79,6 @@ export class LoginComponent implements OnInit {
     this.userService.getCounters().subscribe(
       response => {
         localStorage.setItem('stats', JSON.stringify(response))
-        this.status = 'success'
       },
 
       err => {

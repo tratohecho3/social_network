@@ -8,13 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { HomeComponent } from './home/home.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UploadService } from './services/upload.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { HomeComponent } from './home/home.component';
   ],
   providers: [
     appRoutingProviders,
-    UserService
+    UserService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })
