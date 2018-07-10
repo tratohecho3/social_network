@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UploadService } from './services/upload.service';
 import { UsersComponent } from './users/users.component';
+import { FollowService } from './services/follow.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UsersComponent } from './users/users.component';
   providers: [
     appRoutingProviders,
     UserService,
-    UploadService
+    UploadService,
+    FollowService
   ],
   bootstrap: [AppComponent]
 })

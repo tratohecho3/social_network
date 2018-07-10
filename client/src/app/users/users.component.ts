@@ -3,6 +3,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { GLOBAL } from '../services/global';
+import { FollowService } from '../services/follow.service';
+import { Follow } from '../models/follow';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -20,7 +22,8 @@ export class UsersComponent implements OnInit {
   public total;
   public pages; 
   public users: User[];
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService) { 
+  public follows;
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private userService: UserService, private followService: FollowService) { 
     this.title = 'Gente';
     this.url = GLOBAL.url;
     this.identity = userService.getIdentity();
@@ -64,6 +67,7 @@ export class UsersComponent implements OnInit {
         this.total = response.total;
         this.users = response.users;
         this.pages = response.pages;
+        this.follows = response.users_following;
         if(page > this.pages) {
           this.router.navigate(['/gente',1]);
         }
@@ -75,5 +79,47 @@ export class UsersComponent implements OnInit {
       this.status = 'error'
     }
   })
+  }
+
+  public followUserOver;
+  mouseEnter(user_id) {
+    this.followUserOver = user_id;
+  }
+
+  mouseLeave(user_id) {
+    this.followUserOver = 0;
+  }
+
+  followUser(followed) {
+    let follow = new Follow('',this.identity._id, followed);
+
+    this.followService.addFollow(this.token, follow).subscribe(response => {
+      if(!response.follow){
+        this.status = 'error'
+      }
+      else {
+        this.status = 'success';
+        this.follows.push(followed)
+      }
+    }, err =>{
+      console.log(err);
+      if (err != null) {
+        this.status = 'error'
+      }
+    })
+  }
+
+  unfollowUser(followed) {
+    this.followService.deleteFollow(this.token, followed).subscribe(response => {
+      let i = this.follows.indexOf(followed);
+      if( i != -1) {
+        this.follows.splice(i,1)
+      }
+    }, err =>{
+      console.log(err);
+      if (err != null) {
+        this.status = 'error'
+      }
+    })
   }
 }
