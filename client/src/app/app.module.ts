@@ -10,6 +10,7 @@ import { UserService } from './services/user.service';
 import { HomeComponent } from './home/home.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UploadService } from './services/upload.service';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { UploadService } from './services/upload.service';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    UserEditComponent
+    UserEditComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

@@ -160,11 +160,13 @@ function getUsers(req, res) {
         if (!users) return res.status(404).send({message: 'No hay usuarios disponibles'});
         
         followUserIds(identity_user_id).then((value) => {
+            
             return res.status(200).send({
-                users,
+                users:users,
                 users_following:value.following,
                 users_follow_me:value.followed,
-                total,pages: Math.ceil(total/itemsPerPage)})
+                total:total,
+                pages: Math.ceil(total/itemsPerPage)})
         })
     })
 }

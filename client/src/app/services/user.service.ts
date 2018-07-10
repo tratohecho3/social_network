@@ -89,4 +89,16 @@ export class UserService {
 
     return this.httpClient.put(`${this.url}update-user/${user._id}`, params, {headers})
   }
+
+  getUsers(page = null): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+    
+    return this.httpClient.get(this.url + 'users/' + page, {headers});
+  }
+
+  getUser(id): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', this.getToken());
+    
+    return this.httpClient.get(this.url + 'user/' + id, {headers});
+  }
 }

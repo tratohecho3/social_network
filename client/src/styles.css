@@ -70,4 +70,34 @@
 .navigation .avatar .img {
     height: auto;
     width: 30px;
+    
+}
+
+.item-user .image-user {
+    width: 75px;
+    height: 75px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-right: 15px;
+}
+
+.item-user .image-user img {
+    width: 120px;
+}
+
+.item-user .user-name {
+    margin-top: 10px;
+}
+
+.item-user .user-name .nickname{
+    color: #969393
+}
+
+.item-user .user-name .name-surname a{
+    font-weight: bold;
+    color: #505044
+}
+
+.avatar-default {
+    width: 100% !important;
 }
