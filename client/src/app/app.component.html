@@ -14,7 +14,7 @@
           </a>
         </li>
         <li>
-          <a>
+          <a [routerLink]="['/timeline']" [routerLinkActive]="['active']" > 
             <span class="glyphicon glyphicon-th-list"></span>
             Timeline  
           </a>
@@ -43,9 +43,9 @@
           </li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right" *ngIf="identity">
+      <ul class="nav navbar-nav navbar-right" *ngIf="identity" id="user-card-2">
         <li class="avatar">
-          <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity && identity.image">
+          <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity && identity.image" id="logo-bar">
         </li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown">{{identity.name}} <span class="caret"></span></a>

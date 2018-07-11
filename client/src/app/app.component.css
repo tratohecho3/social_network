@@ -1,0 +1,14 @@
+#user-card-2 .avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-right: 15px;
+    margin-bottom: 5px;
+
+}
+
+#user-card-2 .avatar img {
+    width: 100%;
+    
+}

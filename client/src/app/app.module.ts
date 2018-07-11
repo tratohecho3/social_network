@@ -12,6 +12,9 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { UploadService } from './services/upload.service';
 import { UsersComponent } from './users/users.component';
 import { FollowService } from './services/follow.service';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { PublicationService } from './services/publication.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { FollowService } from './services/follow.service';
     RegisterComponent,
     HomeComponent,
     UserEditComponent,
-    UsersComponent
+    UsersComponent,
+    SidebarComponent,
+    TimelineComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,8 @@ import { FollowService } from './services/follow.service';
     appRoutingProviders,
     UserService,
     UploadService,
-    FollowService
+    FollowService,
+    PublicationService
   ],
   bootstrap: [AppComponent]
 })
