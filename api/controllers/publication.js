@@ -55,7 +55,7 @@ function getPublications(req, res) {
             if(err) return res.status(500).send({message: 'Error al devolver  publications'});
     
             if(!publications) return res.status(404).send({message: 'No hay publications'});
-            return res.status(200).send({total_items: total,pages: Math.ceil(total/ itemsPerPage),page, publications})
+            return res.status(200).send({total_items: total,pages: Math.ceil(total/ itemsPerPage),page, items_per_page: itemsPerPage,publications})
             })
 
     })

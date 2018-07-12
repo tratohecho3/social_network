@@ -18,6 +18,19 @@ export class PublicationService {
     let params = JSON.stringify(publication);
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 
-    return this.http.post(this.url+'publication', params, {headers});
+    return this.http.post(this.url+'publication', params, {headers});   
   }
+
+  getPublications(token, page = 1): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this.http.get(this.url + 'publications/' + page, {headers});
+  }
+
+  deletePublication(token, id): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this.http.delete(this.url + 'publication/' + id, {headers})
+
+  } 
 }
