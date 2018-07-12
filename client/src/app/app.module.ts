@@ -15,6 +15,8 @@ import { FollowService } from './services/follow.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { PublicationService } from './services/publication.service';
+import { MomentModule } from 'angular2-moment';
+import { PublicationsComponent } from './publications/publications.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +27,15 @@ import { PublicationService } from './services/publication.service';
     UserEditComponent,
     UsersComponent,
     SidebarComponent,
-    TimelineComponent
+    TimelineComponent,
+    PublicationsComponent
   ],
   imports: [
     BrowserModule,
     routing,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule
   ],
   providers: [
     appRoutingProviders,

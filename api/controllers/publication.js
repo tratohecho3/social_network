@@ -48,8 +48,8 @@ function getPublications(req, res) {
         let follows_clean = [];
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
-        })
-        console.log(follows_clean)
+        });
+        follows_clean.push(req.user.sub)
 
         Publication.find({user: {"$in": follows_clean}}).sort('-created_at').populate('user').paginate(page,itemsPerPage, (err, publications, total) => {
             if(err) return res.status(500).send({message: 'Error al devolver  publications'});

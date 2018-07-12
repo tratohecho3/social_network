@@ -4,11 +4,11 @@ import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 import { GLOBAL } from '../services/global';
 import { PublicationService } from '../services/publication.service';
 @Component({
-  selector: 'app-timeline',
-  templateUrl: './timeline.component.html',
-  styleUrls: ['./timeline.component.css']
+  selector: 'app-publications',
+  templateUrl: './publications.component.html',
+  styleUrls: ['./publications.component.css']
 })
-export class TimelineComponent implements OnInit {
+export class PublicationsComponent implements OnInit {
   public identity;
   public token;
   public title:string;
@@ -59,7 +59,7 @@ export class TimelineComponent implements OnInit {
       }
     })
   }
-/*
+
   viewMore() {
     this.page += 1;
 
@@ -70,26 +70,6 @@ export class TimelineComponent implements OnInit {
 
     this.getPublications(this.page, true)
 
-  }*/
-  
-  viewMore() {
-
-    if(this.publications.length == (this.total)) {
-      
-      this.noMore = true;
-    }
-    else {
-      this.page += 1;
-
-    }
-
-    this.getPublications(this.page, true)
-
-  }
-
-  refresh(event) {
-    this.getPublications(1);
-    
   }
 
 }
