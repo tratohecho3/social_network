@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 import { GLOBAL } from '../services/global';
-import { PublicationService } from '../services/publication.service';
+import { PublicationService } from '../services/publication.service'; 
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.component.html',
