@@ -41,7 +41,7 @@ function getPublications(req, res) {
     if(req.params.page) {
         page = req.params.page;
     }
-
+    console.log(req.user.sub)
     Follow.find({user: req.user.sub}).populate('followed').exec((err, follows) => {
         if(err) return res.status(500).send({message: 'Error al devolver el seguimiento'});
 
@@ -61,6 +61,24 @@ function getPublications(req, res) {
     })
 }
 
+function getPublicationsUser(req, res) {
+    let page = 1;
+    let itemsPerPage = 4;
+    if(req.params.page) {
+        page = req.params.page;
+    }
+    let user = req.user.sub;
+    if(req.params.user) {
+        user = req.params.user
+    }
+    Publication.find({user: user}).sort('-created_at').populate('user').paginate(page,itemsPerPage, (err, publications, total) => {
+        
+        if(err) return res.status(500).send({message: 'Error al devolver  publications'});
+
+        if(!publications) return res.status(404).send({message: 'No hay publications'});
+        return res.status(200).send({total_items: total,pages: Math.ceil(total/ itemsPerPage),page, items_per_page: itemsPerPage,publications})
+        })
+}
 function getPublication(req, res) {
     let publicationId = req.params.id;
 
@@ -153,5 +171,6 @@ module.exports = {
     getPublication,
     deletePublication,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getPublicationsUser
 }

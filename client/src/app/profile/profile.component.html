@@ -26,9 +26,35 @@
 
       </div>
     </div>
-
+    <div class="stats pull-left" *ngIf="stats">
+      <div class="following-data">
+        <a>
+          <span class="label-stats">Siguiendo </span>
+          <span class="number-stats"> {{stats.following}}</span>
+        </a>
+      </div>
+  
+      <div class="following-data">
+          <a>
+            <span class="label-stats">Seguidores  </span>
+            <span class="number-stats"> {{stats.followed}}</span>
+          </a>
+      </div>
+  
+      <div class="following-data">
+          <a>
+            <span class="label-stats">Publicaciones </span>
+            <span class="number-stats"> {{stats.publications}}</span>
+          </a>
+      </div>
+    </div>
+    <div class="col-lg-12 publications" *ngIf="user">
+      <app-publications [user]="user._id"></app-publications>
+  
+    </div>
 
   </div>
+
 </div>
 
 <app-sidebar></app-sidebar>

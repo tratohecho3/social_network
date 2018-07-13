@@ -27,6 +27,12 @@ export class PublicationService {
     return this.http.get(this.url + 'publications/' + page, {headers});
   }
 
+  getPublicationsUser(token, user_id, page = 1): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+
+    return this.http.get(this.url + 'publications-user/'+ user_id + '/'+page, {headers});
+  }
+
   deletePublication(token, id): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
 

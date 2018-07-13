@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 import { GLOBAL } from '../services/global';
@@ -20,6 +20,7 @@ export class PublicationsComponent implements OnInit {
   public pages;
   public itemsPerPage;
   public noMore;
+  @Input() user:string;
   constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private publicationService: PublicationService) { 
     this.title = 'Timeline';
     this.identity = this.userService.getIdentity();
@@ -29,11 +30,12 @@ export class PublicationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPublications(1)
+    this.getPublications(this.user,this.page)
   }
 
-  getPublications(page, adding = false) {
-    this.publicationService.getPublications(this.token, page).subscribe(response => {
+  
+  getPublications(user, page, adding = false) {
+    this.publicationService.getPublicationsUser(this.token, user, page).subscribe(response => {
       if(response.publications) {
         this.total = response.total_items;
         this.pages = response.pages; 
@@ -68,7 +70,7 @@ export class PublicationsComponent implements OnInit {
       this.noMore = true;
     }
 
-    this.getPublications(this.page, true)
+    this.getPublications(this.user,this.page, true)
 
   }
 
