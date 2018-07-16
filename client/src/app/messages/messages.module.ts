@@ -6,12 +6,14 @@ import { ReceivedComponent } from './received/received.component';
 import { SendedComponent } from './sended/sended.component';
 import { MessagesRoutingModule } from './messages-routing.module';
 import { FormsModule } from '../../../node_modules/@angular/forms';
+import {MomentModule} from 'angular2-moment';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    MessagesRoutingModule
+    MessagesRoutingModule,
+    MomentModule
   ],
   declarations: [MainComponent, AddComponent, ReceivedComponent, SendedComponent],
   exports: [
