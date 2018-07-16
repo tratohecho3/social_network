@@ -57,8 +57,11 @@ function getFollowingUsers(req, res) {
         if(err) return res.status(500).send({message: 'Error en el servidor'});
 
         if(!follows) return res.status(404).send({message: 'No estas siguiendo a ningun usuario'});
+        
+        followUserIds(req.user.sub).then((value) => {
 
-        return res.status(200).send({total, pages: Math.ceil(total/itemsPerPage), follows});
+            return res.status(200).send({total, pages: Math.ceil(total/itemsPerPage), follows, users_following: value.following, users_follow_me: value.followed});
+        })
     })
 }
 
@@ -82,8 +85,10 @@ function getFollowedUsers(req, res) {
         if(err) return res.status(500).send({message: 'Error en el servidor'});
 
         if(!follows) return res.status(404).send({message: 'No te sigue ningun usuario'});
+        followUserIds(req.user.sub).then((value) => {
 
-        return res.status(200).send({total, pages: Math.ceil(total/itemsPerPage), follows});
+            return res.status(200).send({total, pages: Math.ceil(total/itemsPerPage), follows, users_following: value.following, users_follow_me: value.followed});
+        })
     })
 }
 
@@ -103,7 +108,39 @@ function getMyFollows(req, res) {
     })
 }
 
+async function followUserIds(user_id) {
 
+    try {
+        let following = await Follow.find({"user": user_id}).select({'_id':0, '__v':0, 'user':0}).exec().then((follows) => {
+            let follows_clean = [];
+            console.log(follows)
+    
+            follows.forEach((follow) => {
+                follows_clean.push(follow.followed);
+            })
+            console.log(follows_clean)
+            return follows_clean;
+        })            
+        .catch((err)=>{
+            return console.log(err);
+        });
+    
+        let followed = await Follow.find({"followed": user_id}).select({'_id':0, '__v':0, 'followed':0}).exec().then((follows) => {
+            let follows_clean = [];
+            follows.forEach((follow) => {
+                follows_clean.push(follow.user);
+            })
+            return follows_clean;
+        })
+        .catch((err)=>{
+            return console.log(err);
+        });
+        return {following, followed}
+    } catch (e) {
+        console.log(e);
+    }
+
+}
 module.exports = {
     prueba,
     saveFollow,

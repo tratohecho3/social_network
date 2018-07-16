@@ -18,6 +18,8 @@ import { PublicationService } from './services/publication.service';
 import { MomentModule } from 'angular2-moment';
 import { PublicationsComponent } from './publications/publications.component';
 import { ProfileComponent } from './profile/profile.component';
+import { FollowingComponent } from './following/following.component';
+import { FollowedComponent } from './followed/followed.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ProfileComponent } from './profile/profile.component';
     SidebarComponent,
     TimelineComponent,
     PublicationsComponent,
-    ProfileComponent
+    ProfileComponent,
+    FollowingComponent,
+    FollowedComponent
   ],
   imports: [
     BrowserModule,
