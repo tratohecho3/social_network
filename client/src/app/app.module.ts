@@ -20,6 +20,7 @@ import { PublicationsComponent } from './publications/publications.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FollowingComponent } from './following/following.component';
 import { FollowedComponent } from './followed/followed.component';
+import { MessagesModule } from './messages/messages.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FollowedComponent } from './followed/followed.component';
     routing,
     FormsModule,
     HttpClientModule,
-    MomentModule
+    MomentModule,
+    MessagesModule
   ],
   providers: [
     appRoutingProviders,
