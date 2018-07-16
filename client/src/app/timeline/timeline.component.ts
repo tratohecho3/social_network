@@ -20,6 +20,7 @@ export class TimelineComponent implements OnInit {
   public pages;
   public itemsPerPage;
   public noMore;
+  public showImage;
   constructor(private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private publicationService: PublicationService) { 
     this.title = 'Timeline';
     this.identity = this.userService.getIdentity();
@@ -73,23 +74,34 @@ export class TimelineComponent implements OnInit {
   }*/
   
   viewMore() {
-
-    if(this.publications.length == (this.total)) {
+    this.page += 1;
+    if(this.page == this.pages) {
       
       this.noMore = true;
-    }
-    else {
-      this.page += 1;
-
     }
 
     this.getPublications(this.page, true)
 
   }
 
-  refresh(event) {
+  refresh(event= null) {
     this.getPublications(1);
     
+  }
+
+  showThisImage(id) {
+    this.showImage = id;
+  }
+
+  hideThisImage() {
+    this.showImage = 0;
+  } 
+  deletePublication(id) {
+    this.publicationService.deletePublication(this.token, id).subscribe(response => {
+      this.refresh()
+    }, err => {
+      console.log(err)
+    })
   }
 
 }

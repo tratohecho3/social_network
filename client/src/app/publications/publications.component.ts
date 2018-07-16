@@ -3,6 +3,7 @@ import { UserService } from '../services/user.service';
 import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 import { GLOBAL } from '../services/global';
 import { PublicationService } from '../services/publication.service'; 
+import { $ } from '../../../node_modules/protractor';
 @Component({
   selector: 'app-publications',
   templateUrl: './publications.component.html',
@@ -61,7 +62,19 @@ export class PublicationsComponent implements OnInit {
       }
     })
   }
+  
+  viewMore() {
+    this.page += 1;
+    if(this.page == this.pages) {
+      
+      this.noMore = true;
+    }
 
+    this.getPublications(this.user,this.page, true)
+
+  }
+
+  /*
   viewMore() {
     this.page += 1;
 
@@ -72,6 +85,7 @@ export class PublicationsComponent implements OnInit {
 
     this.getPublications(this.user,this.page, true)
 
-  }
+  }*/
+
 
 }

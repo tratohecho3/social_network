@@ -4,12 +4,12 @@
 </div>
 <div id="user-card" class="col-lg-4 panel panel-default pull-left">
   <div class="avatar pull-left">
-    <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity.name">
-    <img src="../../assets/user.png" *ngIf="!identity.name">
+    <img src="{{ url + 'get-image-user/' + identity.image}}" *ngIf="identity.image">
+    <img src="../../assets/user.png" *ngIf="!identity.image">
   </div>
 
   <div class="name-surname pull-left">
-    <a class="username">
+    <a class="username" [routerLink]="['/perfil', identity._id]">
       {{identity.name + ' ' + identity.surname}}
     </a>
     <p class="nickname">{{identity.nick}}</p>
@@ -51,7 +51,7 @@
     Publicacion no enviada
   </div>
 
-  <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm); sendPublication($event);" class="col-lg-10">
+  <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm, $event)" class="col-lg-10">
     <p>
       <label>Que estas pensando hoy?</label>
       <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control" required></textarea>
@@ -60,7 +60,7 @@
 
     <p>
       <label>Sube tu foto</label>
-      <input type="file" placeholder="Subir imagen">
+      <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)">
     </p>
 
     <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubForm.valid">

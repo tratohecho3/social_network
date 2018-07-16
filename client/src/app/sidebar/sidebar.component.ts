@@ -4,6 +4,7 @@ import { GLOBAL} from '../services/global';
 import { Publication } from '../models/publication'
 import { PublicationService } from '../services/publication.service';
 import { Router, ActivatedRoute, Params } from '../../../node_modules/@angular/router';
+import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +18,7 @@ export class SidebarComponent implements OnInit {
   public stats;
   public status;
   public publication: Publication
-  constructor(private userService: UserService, private publicationService: PublicationService,private router: Router, private activatedRoute: ActivatedRoute) { 
+  constructor(private userService: UserService, private publicationService: PublicationService,private router: Router, private activatedRoute: ActivatedRoute, private uploadService: UploadService) { 
     this.url = GLOBAL.url;
     this.identity = this.userService.getIdentity();
     this.token = this.userService.getToken();
@@ -29,13 +30,29 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(form) {
+  onSubmit(form, event) {
     this.publicationService.addPublication(this.token, this.publication).subscribe(response => {
       if(response.publication) {
-        this.publication = response.publication;
-        this.status = 'success'
-        form.reset();
-        this.router.navigate(['/timeline']);
+       // this.publication = response.publication;
+        if(this.filesToUpload && this.filesToUpload.length) {
+          this.uploadService.makeFileRequest(this.url +'upload-image-pub/' + response.publication._id,[], this.filesToUpload, this.token, 'image')
+          .then((result:any) => {
+            this.publication.file = result.image;
+            this.status = 'success'
+            form.reset();
+            this.router.navigate(['/timeline']);
+            this.sended.emit({send:'true'})
+
+          })
+        }
+        else {
+          this.status = 'success'
+          form.reset();
+          this.router.navigate(['/timeline']);
+          this.sended.emit({send:'true'})
+
+        }
+
       }
       else {
         this.status = 'error'
@@ -48,10 +65,12 @@ export class SidebarComponent implements OnInit {
     })
   }
 
-  @Output() sended = new EventEmitter();
+  public filesToUpload: Array<File>;
 
-  sendPublication(event) {
-    this.sended.emit({send:'true'})
+  fileChangeEvent(fileInput: any) {
+    this.filesToUpload = <Array<File>>fileInput.target.files;
   }
+
+  @Output() sended = new EventEmitter();
 
 }

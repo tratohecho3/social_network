@@ -153,7 +153,7 @@ function removeFilesOfUploads(res,file_path, message) {
 
 function getImageFile(req, res) {
     let image_file = req.params.imageFile;
-    let path_file = './uploads/publicationss/' + image_file;
+    let path_file = './uploads/publications/' + image_file;
     fs.exists(path_file, (exists) => {
         if(exists) {
             res.sendFile(path.resolve(path_file));

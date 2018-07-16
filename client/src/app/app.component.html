@@ -51,7 +51,7 @@
           <a class="dropdown-toggle" data-toggle="dropdown">{{identity.name}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li>  
-                <a>
+                <a [routerLink]="['/perfil', identity._id]">
                   <span class="glyphicon glyphicon-user"></span>
                   Mi perfil
                 </a>
