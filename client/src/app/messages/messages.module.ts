@@ -7,6 +7,7 @@ import { SendedComponent } from './sended/sended.component';
 import { MessagesRoutingModule } from './messages-routing.module';
 import { FormsModule } from '../../../node_modules/@angular/forms';
 import {MomentModule} from 'angular2-moment';
+import { UserGuard } from '../services/user.guard';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {MomentModule} from 'angular2-moment';
   declarations: [MainComponent, AddComponent, ReceivedComponent, SendedComponent],
   exports: [
     MainComponent, AddComponent, ReceivedComponent, SendedComponent
-  ]
+  ],
+  providers: [UserGuard]
 })
 export class MessagesModule { }

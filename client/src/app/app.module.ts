@@ -21,6 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FollowingComponent } from './following/following.component';
 import { FollowedComponent } from './followed/followed.component';
 import { MessagesModule } from './messages/messages.module';
+import { UserGuard } from './services/user.guard';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { MessagesModule } from './messages/messages.module';
     UserService,
     UploadService,
     FollowService,
-    PublicationService
+    PublicationService,
+    UserGuard
   ],
   bootstrap: [AppComponent]
 })
